@@ -19,19 +19,14 @@ use App\Http\Controllers\LoginController;
 //     return view('dasboard');
 // });
 
-
-Route::get('/index',[HomeController::class,'index'])->name('index');
-
-Route::get('/create',[HomeController::class,'create'])->name('user.create');
-
-Route::post('/store',[HomeController::class,'store'])->name('user.store');
-
-Route::get('/edit/{id}',[HomeController::class,'edit'])->name('user.edit');
-
-Route::post('/update/{id}',[HomeController::class,'update'])->name('user.update');
-
-Route::delete('/delete/{id}',[HomeController::class,'delete'])->name('user.delete');
-
+Route::middleware(['auth'])->group(function () {
+    Route::get('/index', [HomeController::class, 'index'])->name('index');
+    Route::get('/create', [HomeController::class, 'create'])->name('user.create');
+    Route::post('/store', [HomeController::class, 'store'])->name('user.store');
+    Route::get('/edit/{id}', [HomeController::class, 'edit'])->name('user.edit');
+    Route::post('/update/{id}', [HomeController::class, 'update'])->name('user.update');
+    Route::delete('/delete/{id}', [HomeController::class, 'delete'])->name('user.delete');
+});
 
 Route::get('/',[LoginController::class,'index'])->name('login');
 
